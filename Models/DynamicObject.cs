@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 public class DynamicObject
 {
     public int Id { get; set; }

@@ -101,7 +101,7 @@ public class DynamicObjectsController : ControllerBase
         catch
         {
             await transaction.RollbackAsync();
-            return StatusCode(500, "İşlem sırasında bir hata oluştu.");
+            return StatusCode(500, "An issue is occured");
         }
 
         return Ok(dynamicObjects);
