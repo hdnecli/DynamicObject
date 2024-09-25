@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 public class DynamicObject
 {
     public int Id { get; set; }
-    public string? ObjectType { get; set; }
-    public string? Data { get; set; } 
+    public required string ObjectType { get; set; }
+    public required string Data { get; set; } 
 }

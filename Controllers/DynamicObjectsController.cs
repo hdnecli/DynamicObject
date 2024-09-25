@@ -84,4 +84,26 @@ public class DynamicObjectsController : ControllerBase
     {
         return _context.DynamicObjects.Any(e => e.Id == id);
     }
+
+    [HttpPost("transaction")]
+    public async Task<IActionResult> CreateDynamicObjects(List<DynamicObject> dynamicObjects)
+    {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            foreach (var dynamicObject in dynamicObjects)
+            {
+                _context.DynamicObjects.Add(dynamicObject);
+            }
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            return StatusCode(500, "İşlem sırasında bir hata oluştu.");
+        }
+
+        return Ok(dynamicObjects);
+    }
 }
